@@ -1,0 +1,527 @@
+:root {
+  --google-blue: #1a73e8;
+  --google-gray: #f1f3f4;
+  --bradesco-red: #cc092f;
+  --bradesco-dark: #2B2D42;
+  --bg-color: #ffffff;
+  --text-dark: #202124;
+  --text-muted: #5f6368;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --border-color: #dfe1e5;
+  --serp-link: #1a0dab;
+  --serp-url: #006621;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.google-input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 8px 16px;
+  max-width: 584px;
+  width: 100%;
+  margin: 0 auto;
+  transition: var(--transition);
+}
+
+.google-input-wrapper:hover,
+.google-input-wrapper:focus-within {
+  box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+  border-color: rgba(223, 225, 229, 0);
+}
+
+.google-input {
+  border: none;
+  background: transparent;
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+  outline: none;
+}
+
+.google-btn {
+  background-color: #f8f9fa;
+  border: 1px solid #f8f9fa;
+  border-radius: 4px;
+  color: #3c4043;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  margin: 11px 4px;
+  padding: 0 16px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.google-btn:hover {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+  border: 1px solid #dadce0;
+  color: #202124;
+}
+
+.serp-card {
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  max-width: 650px;
+}
+
+.serp-sponsored {
+  background-color: #fffafb;
+  border: 1px solid #ffe6eb;
+  position: relative;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.serp-sponsored:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(204, 9, 47, 0.1);
+}
+
+.sponsored-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bradesco-red);
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.serp-title {
+  color: var(--serp-link);
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-family: 'Product Sans', 'Inter', sans-serif;
+}
+
+.serp-url {
+  color: var(--serp-url);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.serp-desc {
+  color: #4d5156;
+  font-size: 14px;
+  line-height: 1.58;
+}
+
+/* Agent Interface Styles */
+.agent-container {
+  min-height: 100vh;
+  background-color: #ffffff;
+  /* pure white minimal background */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.agent-header {
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f8f9fa;
+  /* subtle line */
+}
+
+.agent-logo {
+  font-family: 'Product Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bradesco-red);
+  letter-spacing: -0.5px;
+}
+
+.agent-core {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.agent-message-lead {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--bradesco-dark);
+  line-height: 1.3;
+  margin-bottom: 40px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s forwards;
+}
+
+.typing-indicator span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--bradesco-red);
+  border-radius: 50%;
+  margin: 0 2px;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.quick-reply-btn {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 30px;
+  padding: 12px 24px;
+  font-size: 16px;
+  color: var(--bradesco-dark);
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.quick-reply-btn:hover {
+  border-color: var(--bradesco-red);
+  color: var(--bradesco-red);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(204, 9, 47, 0.1);
+}
+
+.agent-chat-history {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  /* much more spacing to feel like a document */
+  margin-bottom: 40px;
+}
+
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 90%;
+}
+
+.wrapper-agent {
+  align-self: flex-start;
+}
+
+.wrapper-user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.message-node {
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.message-agent {
+  color: var(--bradesco-dark);
+  /* no background, no shadow for frameless look */
+}
+
+/* Add a tiny agent badge before agent messages */
+.agent-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--bradesco-red);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: -4px;
+  /* snug to the text */
+}
+
+.message-user {
+  color: #8a8d91;
+  /* subtle gray */
+  /* no background, just text */
+  text-align: right;
+  font-weight: 400;
+}
+
+/* Rich Cards */
+.rich-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #f0f0f0;
+  width: 100%;
+  min-width: 320px;
+  max-width: 440px;
+  /* restrict width so it looks like an inline form */
+  margin-top: 12px;
+}
+
+/* Input Card (CPF/SMS) Styles */
+.input-card {
+  padding: 20px;
+}
+
+.input-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--bradesco-dark);
+  margin-bottom: 16px;
+}
+
+.auth-form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.auth-input-field {
+  flex: 1;
+  border: 1px solid #e0e0e0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  background: #fdfdfd;
+}
+
+.auth-input-field:focus {
+  border-color: var(--bradesco-red);
+}
+
+.auth-submit-btn {
+  background: var(--bradesco-red);
+  color: white;
+  border: none;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.auth-submit-btn:hover {
+  background: #b00727;
+}
+
+.auth-submit-btn.disabled-btn {
+  background: #f0a0a0;
+  /* soft red when disabled */
+  cursor: not-allowed;
+}
+
+.input-card-footer {
+  font-size: 11px;
+  color: #a0a0a0;
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* Data summary components */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--bradesco-dark);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.debt-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.debt-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 8px;
+}
+
+.debt-total span {
+  font-size: 14px;
+  color: var(--bradesco-dark);
+  font-weight: 500;
+}
+
+.debt-total h3 {
+  color: var(--bradesco-red);
+  font-size: 24px;
+}
+
+/* Simulation Cards */
+.simulation-card {
+  padding: 20px;
+  background: #fff;
+  max-width: 440px;
+}
+
+.simulation-card h4 {
+  margin-bottom: 16px;
+  color: var(--bradesco-dark);
+  font-weight: 600;
+}
+
+.simulation-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.simulation-option:hover {
+  border-color: var(--bradesco-red);
+  box-shadow: 0 4px 12px rgba(204, 9, 47, 0.05);
+}
+
+.simulation-option .installments {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--bradesco-dark);
+}
+
+.simulation-option .value {
+  color: var(--bradesco-dark);
+  font-size: 18px;
+}
+
+/* Pix Card */
+.pix-card h4 {
+  margin-bottom: 12px;
+}
+
+.pix-code-box {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  word-break: break-all;
+  margin-bottom: 16px;
+  border: 1px solid #e0e0e0;
+}
+
+.copy-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bradesco-red);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  background: #b00727;
+}
+
+/* We hide the bottom global input in favor of contextual inline input cards when requested by the model */
+.agent-input-container {
+  display: none;
+  /* Flow is driven entirely step-by-step by cards now */
+}
+
+.agent-input {
+  flex: 1;
+  border: none;
+  padding: 12px 16px;
+  font-size: 18px;
+  outline: none;
+  background: transparent;
+}
+
+.agent-send-btn {
+  background: var(--bradesco-red);
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.agent-send-btn:hover {
+  transform: scale(1.05);
+}
+
+.agent-send-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
