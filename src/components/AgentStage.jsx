@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp, Menu, Copy, CheckCircle2, ShieldCheck, ChevronRight, Lock } from 'lucide-react';
 import { sendMessageStream } from '../api/geminiApi';
+import { trackEvent } from '../utils/analytics';
 
 export default function AgentStage() {
   const [messages, setMessages] = useState([]);
@@ -100,6 +101,7 @@ export default function AgentStage() {
             onSubmit={(e) => {
               e.preventDefault();
               if (inputLocal.trim()) {
+                trackEvent('cpf_submitted', { step: 'identity_confirmation' });
                 handleSend(inputLocal);
                 setInputLocal('');
               }
@@ -139,6 +141,7 @@ export default function AgentStage() {
             onSubmit={(e) => {
               e.preventDefault();
               if (inputLocal.trim()) {
+                trackEvent('sms_verified', { step: 'sms_authentication' });
                 handleSend(inputLocal);
                 setInputLocal('');
               }
@@ -196,7 +199,12 @@ export default function AgentStage() {
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="rich-card simulation-card">
           <h4>Opções de Parcelamento</h4>
           {options.map((opt, i) => (
-            <div key={i} className="simulation-option" onClick={() => isLatest && handleSend(opt.installments + 'x de R$ ' + opt.value)}>
+            <div key={i} className="simulation-option" onClick={() => {
+              if (isLatest) {
+                trackEvent('payment_option_selected', { step: 'simulation', installments: opt.installments, value: opt.value });
+                handleSend(opt.installments + 'x de R$ ' + opt.value);
+              }
+            }}>
               <div>
                 <span className="installments">{opt.installments}x</span> de <strong className="value">R$ {opt.value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong>
               </div>
@@ -216,6 +224,7 @@ export default function AgentStage() {
             {data.pixCode || "0002010102112636br.gov.bcb...."}
           </div>
           <button className="copy-btn" onClick={(e) => {
+            trackEvent('pix_code_copied', { step: 'payment' });
             navigator.clipboard.writeText(data.pixCode || "");
             e.target.innerText = "Copiado!";
             setTimeout(() => e.target.innerText = "Copiar Código", 2000);
@@ -236,6 +245,7 @@ export default function AgentStage() {
             onSubmit={(e) => {
               e.preventDefault();
               if (inputLocal.trim()) {
+                trackEvent('agreement_confirmed', { step: 'formalization' });
                 handleSend(inputLocal);
                 setInputLocal('');
               }
@@ -336,7 +346,10 @@ export default function AgentStage() {
               <button
                 key={index}
                 className="quick-reply-btn"
-                onClick={() => handleSend(reply)}
+                onClick={() => {
+                  trackEvent('quick_reply_clicked', { label: reply });
+                  handleSend(reply);
+                }}
               >
                 {reply}
               </button>

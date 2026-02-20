@@ -5,9 +5,10 @@ This project is a React and Express application demonstrating a user journey fro
 ## Features
 
 - **Search Stage:** A simulated search engine interface.
-- **Results Stage:** Simulated search results featuring an interactive ad component.
-- **Agent Stage:** A chat interface simulating a conversation with Bradesco's BIA assistant, powered by Google Cloud Vertex AI and Gemini.
-- **Full-stack Setup:** Includes both a Vite React frontend and an Express backend, easily run together concurrently.
+- **Results Stage:** Simulated search results featuring an interactive ad component with two journeys.
+- **Agent Stage (Text):** A chat interface simulating a conversation with Bradesco's BIA assistant, powered by Google Cloud Vertex AI.
+- **Voice Agent Stage (Live):** A real-time voice call experience using the **Gemini Multimodal Live API**, featuring real-time transcription and audio streaming.
+- **Full-stack Setup:** Includes both a Vite React frontend and an Express backend with a built-in WebSocket proxy for secure Vertex AI communication.
 
 ## Prerequisites
 

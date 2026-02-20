@@ -2,22 +2,34 @@ import { useState } from 'react';
 import SearchStage from './components/SearchStage';
 import ResultsStage from './components/ResultsStage';
 import AgentStage from './components/AgentStage';
+import VoiceAgentStage from './components/VoiceAgentStage';
 import { AnimatePresence } from 'framer-motion';
 import { Settings } from 'lucide-react';
 import { hasApiKey, setUseMock } from './api/geminiApi';
+import { trackEvent } from './utils/analytics';
 
 function App() {
-  const [stage, setStage] = useState('search'); // 'search' | 'results' | 'agent'
+  const [stage, setStage] = useState('search'); // 'search' | 'results' | 'agent' | 'voice-agent'
   const [query, setQuery] = useState('');
   const [showSettings, setShowSettings] = useState(false);
 
   const handleSearch = (q) => {
+    trackEvent('search_performed', { query: q });
     setQuery(q);
     setStage('results');
   };
 
-  const handleAdClick = () => {
-    setStage('agent');
+  const handleAdClick = (type = 'text') => {
+    trackEvent('ad_click', { type });
+    if (type === 'voice') {
+      setStage('voice-agent');
+    } else {
+      setStage('agent');
+    }
+  };
+
+  const handleBackToResults = () => {
+    setStage('results');
   };
 
   return (
@@ -71,6 +83,9 @@ function App() {
         )}
         {stage === 'agent' && (
           <AgentStage key="agent" />
+        )}
+        {stage === 'voice-agent' && (
+          <VoiceAgentStage key="voice" onEndCall={handleBackToResults} />
         )}
       </AnimatePresence>
     </>
